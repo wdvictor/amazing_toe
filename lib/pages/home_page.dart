@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:amazing_toe/helpers/color_lib.dart';
+import 'package:animator/animator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show Material;
 
@@ -9,15 +13,69 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late Animation<double> _animation;
+  late AnimationController _controller;
+  late Timer _timer;
+  int _degrees = 90;
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 700),
+    );
+
+    _controller.addStatusListener((status) async {
+      if (status == AnimationStatus.completed) {
+        await Future.delayed(const Duration(milliseconds: 300), () {
+          _controller.reset();
+        });
+      }
+    });
+    _timer =
+        Timer.periodic(const Duration(seconds: 1, milliseconds: 500), (timer) {
+      if (_degrees == 90) {
+        _degrees = 180;
+        setRotation(_degrees);
+        _controller.forward(from: 0);
+      } else {
+        _degrees = 90;
+        setRotation(_degrees);
+        _controller.forward(from: 0);
+      }
+    });
+
+    setRotation(90);
+  }
+
+  void setRotation(int degrees) {
+    final angle = degrees * pi / 180;
+    _animation = Tween<double>(begin: 0.0, end: angle).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   Widget ticTacToeAnimation(int index) {
-    final widget = (String assetName) => Material(
+    Widget widget(String assetName) => Material(
           color: CupertinoColors.systemGrey5,
-          child: Image.asset(assetName),
+          child: AnimatedBuilder(
+              animation: _animation,
+              child: Image.asset(assetName),
+              builder: (context, child) =>
+                  Transform.rotate(angle: _animation.value, child: child)),
         );
+
     switch (index) {
       case 2:
         return widget('assets/o.png');
+      case 4:
+        return widget('assets/x.png');
       case 6:
         return widget('assets/x.png');
       case 8:
