@@ -84,7 +84,7 @@ class _SplashScreenState extends State<SplashScreen>
                 duration: const Duration(milliseconds: 1000),
                 opacity: _textOpacity,
                 child: Text(
-                  'PROAD',
+                  'Tic Tac Toe',
                   style: GoogleFonts.montserrat(
                     color: CupertinoColors.white,
                     fontWeight: FontWeight.bold,
