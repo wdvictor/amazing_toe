@@ -1,5 +1,9 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:amazing_toe/helpers/color_lib.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'home_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -66,9 +70,9 @@ class _SplashScreenState extends State<SplashScreen>
     final double _width = MediaQuery.of(context).size.width;
     final double _height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      backgroundColor: ColorLib.tjLightGreen.color,
-      body: Stack(
+    return CupertinoPageScaffold(
+      backgroundColor: ColorLib.mainPurple.color,
+      child: Stack(
         children: [
           Column(
             children: [
@@ -82,7 +86,7 @@ class _SplashScreenState extends State<SplashScreen>
                 child: Text(
                   'PROAD',
                   style: GoogleFonts.montserrat(
-                    color: Colors.white,
+                    color: CupertinoColors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: animation1.value,
                   ),
