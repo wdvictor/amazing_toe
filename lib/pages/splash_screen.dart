@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:amazing_toe/helpers/color_lib.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' show Material, Colors;
 import 'package:google_fonts/google_fonts.dart';
 
 import 'home_page.dart';
@@ -83,12 +84,15 @@ class _SplashScreenState extends State<SplashScreen>
               AnimatedOpacity(
                 duration: const Duration(milliseconds: 1000),
                 opacity: _textOpacity,
-                child: Text(
-                  'Tic Tac Toe',
-                  style: GoogleFonts.montserrat(
-                    color: CupertinoColors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: animation1.value,
+                child: Material(
+                  color: Colors.transparent,
+                  child: Text(
+                    'Tic Tac Toe',
+                    style: GoogleFonts.montserrat(
+                      color: CupertinoColors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: animation1.value,
+                    ),
                   ),
                 ),
               ),
@@ -105,7 +109,7 @@ class _SplashScreenState extends State<SplashScreen>
                 height: _width / _containerSize,
                 width: _width / _containerSize,
                 alignment: Alignment.center,
-                child: Image.asset('assets/logo_brasao.png'),
+                child: Image.asset('assets/tictactoe.png'),
               ),
             ),
           ),
